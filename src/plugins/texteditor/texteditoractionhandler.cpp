@@ -561,9 +561,9 @@ void TextEditorActionHandlerPrivate::updateCopyAction(bool hasCopyableText)
 {
     QTC_ASSERT(m_currentEditorWidget, return);
     if (m_cutAction)
-        m_cutAction->setEnabled(hasCopyableText && !m_currentEditorWidget->isReadOnly());
+        m_cutAction->setEnabled(!m_currentEditorWidget->isReadOnly());
     if (m_copyAction)
-        m_copyAction->setEnabled(hasCopyableText);
+        m_copyAction->setEnabled(true);
 }
 
 void TextEditorActionHandlerPrivate::updateCurrentEditor(Core::IEditor *editor)

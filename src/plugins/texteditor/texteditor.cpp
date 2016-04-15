@@ -6638,6 +6638,10 @@ void TextEditorWidget::cut()
         d->removeBlockSelection();
         return;
     }
+
+    if (!textCursor().hasSelection())
+        d->maybeSelectLine();
+
     QPlainTextEdit::cut();
     d->collectToCircularClipboard();
 }
@@ -6651,8 +6655,19 @@ void TextEditorWidget::selectAll()
 
 void TextEditorWidget::copy()
 {
-    if (!textCursor().hasSelection() || (d->m_inBlockSelectionMode
-            && d->m_blockSelection.anchorColumn == d->m_blockSelection.positionColumn)) {
+    if (d->m_inBlockSelectionMode
+            && d->m_blockSelection.anchorColumn == d->m_blockSelection.positionColumn) {
+        return;
+    }
+
+    if (!textCursor().hasSelection() && !d->m_inBlockSelectionMode) {
+        QTextCursor prevCursor = textCursor();
+        d->maybeSelectLine();
+
+        QPlainTextEdit::copy();
+        d->collectToCircularClipboard();
+
+        doSetTextCursor(prevCursor, false);
         return;
     }
 
