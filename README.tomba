@@ -1,0 +1,16 @@
+
+# git format-path
+# quilt import 0001-Ctrl-x-c-will-cut-copy-the-whole-line-if-no-selectio.patch 
+# quilt push
+
+Add to changelog:
+
+qtcreator (3.5.1+dfsg-2ubuntu2-tomi1) xenial; urgency=medium                                        
+
+  * My build.
+
+ -- Tomi Valkeinen <tomba@iki.fi>  Mon, 30 Nov 2015 16:46:10 +0200
+
+
+# PATH=/usr/lib/ccache:$PATH CCACHE_DIR=/home/tomba/ccache-qt dpkg-buildpackage -uc -us -b -j9
+
